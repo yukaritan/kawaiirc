@@ -1,0 +1,7 @@
+
+[ ] whois
+[ ] client quitting, maybe store a quit message in client when they QUIT, and if it's not set, we'll use a standard?
+[ ] check if nicks are taken on connect and nick changes
+
+[x] add protocol formatting stuff I'm doing here and there to protocol.py as functions
+[x] give all magic numbers names (constants.py)
