@@ -45,7 +45,6 @@ def main():
     logger.info("Setting up factory")
     factory = IRCFactory()
     factory.protocol = ClientConnection
-    factory.clients = []
 
     logger.info("Listening")
     reactor.listenTCP(6667, factory)
