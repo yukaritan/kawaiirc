@@ -1,8 +1,3 @@
-"""
-This class manages our hooks and it's its responsibility to pick
-and run the right hook function for each message.
-"""
-
 from builtins import staticmethod
 
 import re
@@ -11,6 +6,11 @@ from util import logger
 
 
 class MessageHandler:
+    """
+    This class manages our hooks and it's its responsibility to pick
+    and run the right hook function for each message.
+    """
+
     HOOKS = []
 
     def __init__(self):
@@ -19,7 +19,10 @@ class MessageHandler:
     @staticmethod
     def addhook(regex, func):
         """
+        Hooks a function up to a regex.
+
         :type regex: str
+        :type func: function
         :rtype: None
         """
         logger.debug("Adding hook for '{regex}'", regex=regex)
@@ -31,6 +34,7 @@ class MessageHandler:
         Tries hooks until it finds one that matches. The function and matching data is then returned.
 
         :type data: str
+        :rtype: (regex, function)
         """
         for regex, func in MessageHandler.HOOKS:
             match = regex.match(data)
@@ -44,10 +48,13 @@ class MessageHandler:
     @staticmethod
     def handleline(data, client, channels):
         """
+        Given supplied data, this method selects a function to run based on which regex gets a match first.
+        Returns a list of IRC friendly strings to send back to the server.
+
         :type data: str
         :type client: Client
-        :type channels: list
-        :rtype: list
+        :type channels: [Channel, ...]
+        :rtype: [str, ...]
         """
         # logger.debug("Handling line from {nick}: {data}", nick=client.nick, data=data)
         func, match = MessageHandler.getfunc(data)
