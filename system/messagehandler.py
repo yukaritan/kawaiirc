@@ -7,8 +7,7 @@ from util import logger
 
 class MessageHandler:
     """
-    This class manages our hooks and it's its responsibility to pick
-    and run the right hook function for each message.
+    This class manages our hooks and it's its responsibility to pick and run the right hook function for each message.
     """
 
     HOOKS = []
@@ -19,7 +18,7 @@ class MessageHandler:
     @staticmethod
     def addhook(regex, func):
         """
-        Hooks a function up to a regex.
+        Associates a function with a regex.
 
         :type regex: str
         :type func: function

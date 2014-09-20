@@ -6,8 +6,7 @@
 </head>
 <body>
 <h1>MessageHandler</h1>
-<p>This class manages our hooks and it's its responsibility to pick<br>
-and run the right hook function for each message.</p>
+<p>This class manages our hooks and it's its responsibility to pick and run the right hook function for each message.</p>
 
 <h2>Variables</h2>
 <table border='1'><tr><th>Name</th><th>Params</th><th>Description</th><th>Example</th><th>Returns</th></tr><tr><td>HOOKS</td><td><font color='#aaaaaa'>n/a</font></td><td>list() -&gt; new list<br>
@@ -15,7 +14,7 @@ list(sequence) -&gt; new list initialized from sequence's items</td><td><font co
 
 <h2>Methods</h2>
 <table border='1'><tr><th>Name</th><th>Params</th><th>Description</th><th>Example</th><th>Returns</th></tr><tr><td>addhook</td><td>regex: str,<br>
-func: function</td><td>Hooks a function up to a regex.</td><td><font color='#aaaaaa'>n/a</font></td><td>None</td></tr>
+func: function</td><td>Associates a function with a regex.</td><td><font color='#aaaaaa'>n/a</font></td><td>None</td></tr>
 <tr><td>getfunc</td><td>data: str</td><td>Tries hooks until it finds one that matches. The function and matching data is then returned.</td><td><font color='#aaaaaa'>n/a</font></td><td>(regex, function)</td></tr>
 <tr><td>handleline</td><td>data: str,<br>
 client: Client,<br>

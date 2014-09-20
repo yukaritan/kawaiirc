@@ -3,11 +3,13 @@ import os
 from domain.channel import Channel
 from domain.client import Client
 from domain.protocol import Protocol
+from system import hooks
 from system.ircfactory import IRCFactory
 
 from system.messagehandler import MessageHandler
 from table import Table
 from tablerow import TableRow
+from util import logger
 from util.dictable import Dictable
 
 
@@ -122,7 +124,9 @@ def test():
                Dictable,
                Protocol,
                Protocol.Nick,
-               Protocol.Whois]
+               Protocol.Whois,
+               logger,
+               hooks]
 
     # os.mkdir("docs")
 
