@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+<head>
+<title>Autodoc: system.hooks</title>
+<style>body {font-family: Arial;}</style>
+</head>
+<body>
+<h1>system.hooks</h1>
+<p>Everything is a hook. Everything sent from a client will either be caught<br>
+by a hook and handled, or it's not caught, and ends up in a log somewhere.<br>
+Hooks consist of two things. A regex, and a function.<br>
+A regex is a regular string, and may look like this:<br>
+'^USER (?P&lt;user&gt;[^\s]+) (?P&lt;mode&gt;[^\s]+) (?P&lt;junk&gt;[^\s]+) :(?P&lt;name&gt;.*)'<br>
+You'll find the function below, it's called handle_user(...).<br>
+Every hook function is expected to take four parameters:<br>
+data: Data is the original string that triggered the hook to begin with.<br>
+match: This is a dictionary. The regex above would yield the following dict:<br>
+{'user': 'user@blah.balh',<br>
+'mode': '+i',<br>
+'junk': 'some-junk-here',<br>
+'name': 'some name here'}<br>
+client: This is the client that triggered the hook.<br>
+channels: This is a list of all the channels on the server.</p>
+
+<h2>Variables</h2>
+<table border='1'><tr><th>Name</th><th>Params</th><th>Description</th><th>Example</th><th>Returns</th></tr><tr><td>logger</td><td><font color='#aaaaaa'>n/a</font></td><td>This is a very simple logger. It might evolve over time and add file support and stuff.</td><td><font color='#aaaaaa'>n/a</font></td><td><font color='#aaaaaa'>n/a</font></td></tr></table>
+
+<h2>Methods</h2>
+<table border='1'><tr><th>Name</th><th>Params</th><th>Description</th><th>Example</th><th>Returns</th></tr><tr><td>Channel</td><td><font color='#aaaaaa'>n/a</font></td><td>This is a channel. Each channel has a list of clients and a method that can send the same thing to every client in a loop.<br>
+It actually has two, and they're very similar to each other. The difference is that send() sends to everyone in the channel, while say() sends to everyone except the client who caused the message to be sent in the first place.</td><td><font color='#aaaaaa'>n/a</font></td><td><font color='#aaaaaa'>n/a</font></td></tr>
+<tr><td>Client</td><td><font color='#aaaaaa'>n/a</font></td><td>This is how we know who a user is. It's pretty much just a data store, but it also<br>
+has a function to call its personal ClientConnection's send method.</td><td><font color='#aaaaaa'>n/a</font></td><td><font color='#aaaaaa'>n/a</font></td></tr>
+<tr><td>Protocol</td><td><font color='#aaaaaa'>n/a</font></td><td>Protocol's job is to take function calls and turn them into IRC commands.<br>
+In other words, it's here so you don't have to write raw IRC.<br>
+Don't write raw IRC anywhere else.<br>
+https://tools.ietf.org/html/rfc2812</td><td><font color='#aaaaaa'>n/a</font></td><td><font color='#aaaaaa'>n/a</font></td></tr>
+<tr><td>chain</td><td><font color='#aaaaaa'>n/a</font></td><td>Make an iterator that returns elements from the first iterable<br>
+until it is exhausted, then proceeds to the next iterable, until<br>
+all of the iterables are exhausted. Used for treating consecutive<br>
+sequences as a single sequence.<br>
+Equivalent to :<br>
+def chain(*iterables):<br>
+for it in iterables:<br>
+for element in it:<br>
+yield element</td><td><font color='#aaaaaa'>n/a</font></td><td><font color='#aaaaaa'>n/a</font></td></tr>
+<tr><td>handle_join</td><td>data: str,<br>
+match: dict,<br>
+client: Client,<br>
+channels: list</td><td>Someone joined a channel! A few things can happen now.<br>
+Either they joined a channel that doesn't exist, and in that case, we create it and<br>
+set them as the owner.<br>
+If it already exists, let's announce their arrival to the participants.<br>
+'^JOIN (?P&lt;channels&gt;.*)'</td><td><font color='#aaaaaa'>n/a</font></td><td><font color='#aaaaaa'>n/a</font></td></tr>
+<tr><td>handle_mode</td><td>data: str,<br>
+match: dict,<br>
+client: Client,<br>
+channels: list</td><td>Someone is setting their mode. I don't know enough about this to talk about it yet.<br>
+'^MODE (?P&lt;nick&gt;[^\s]+) (?P&lt;mode&gt;.*)'</td><td><font color='#aaaaaa'>n/a</font></td><td><font color='#aaaaaa'>n/a</font></td></tr>
+<tr><td>handle_nick</td><td>data: str,<br>
+match: dict,<br>
+client: Client,<br>
+channels: list</td><td>When a user changes their nick, tell everyone in all the channels they're in<br>
+about it.<br>
+'^NICK (?P&lt;nick&gt;.*)'</td><td><font color='#aaaaaa'>n/a</font></td><td><font color='#aaaaaa'>n/a</font></td></tr>
+<tr><td>handle_part</td><td>data: str,<br>
+match: dict,<br>
+client: Client,<br>
+channels: list</td><td>Someone is leaving a channel. Let's tell everyone about it and<br>
+remove them from the channel's user listing (and the channel from the client's).<br>
+'^PART (?P&lt;channel&gt;[^\s]+)( :(?P&lt;message&gt;.*))'</td><td><font color='#aaaaaa'>n/a</font></td><td><font color='#aaaaaa'>n/a</font></td></tr>
+<tr><td>handle_ping</td><td>data: str,<br>
+match: dict,<br>
+client: Client,<br>
+channels: list</td><td>Ping! Send pong back.<br>
+'^PING.*'</td><td><font color='#aaaaaa'>n/a</font></td><td><font color='#aaaaaa'>n/a</font></td></tr>
+<tr><td>handle_pong</td><td>data: str,<br>
+match: dict,<br>
+client: Client,<br>
+channels: list</td><td>Pong! This will probably never happen because the server isn't pinging.<br>
+'^PONG.*'</td><td><font color='#aaaaaa'>n/a</font></td><td><font color='#aaaaaa'>n/a</font></td></tr>
+<tr><td>handle_privmsg</td><td>data: str,<br>
+match: dict,<br>
+client: Client,<br>
+channels: list</td><td>This happens when someone sends something. If the targeted channel exists,<br>
+send it to everyone in it.<br>
+TODO: Users can be privmsg'd too, so we should be able to handle that.<br>
+'^PRIVMSG (?P&lt;channel&gt;[^\s]+) :(?P&lt;message&gt;.*)'</td><td><font color='#aaaaaa'>n/a</font></td><td><font color='#aaaaaa'>n/a</font></td></tr>
+<tr><td>handle_user</td><td>data: str,<br>
+match: dict,<br>
+client: Client,<br>
+channels: list</td><td>This is a handshake. We'll blatantly disregard the whole pinging thing,<br>
+because I don't really care. Clients still ping the server as it is.<br>
+We'll see how it works out.<br>
+'^USER (?P&lt;user&gt;[^\s]+) (?P&lt;mode&gt;[^\s]+) (?P&lt;junk&gt;[^\s]+) :(?P&lt;name&gt;.*)'</td><td><font color='#aaaaaa'>n/a</font></td><td><font color='#aaaaaa'>n/a</font></td></tr>
+<tr><td>handle_whois</td><td>data: str,<br>
+match: dict,<br>
+client: Client,<br>
+channels: list</td><td>Someone is asking who someone is. Let's tell them what we know!<br>
+TODO: All of it.<br>
+'^WHOIS (?P&lt;nick&gt;[^\s]+)'</td><td><font color='#aaaaaa'>n/a</font></td><td><font color='#aaaaaa'>n/a</font></td></tr>
+<tr><td>set</td><td><font color='#aaaaaa'>n/a</font></td><td>set(iterable) --&gt; set object<br>
+Build an unordered collection.</td><td><font color='#aaaaaa'>n/a</font></td><td><font color='#aaaaaa'>n/a</font></td></tr></table>
+<br><hr><h5>Generated with Autodoc</h5>
+</body>
+</html>
