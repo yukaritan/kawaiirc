@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+<title>Autodoc: Autodoc</title>
+<style>body {font-family: Arial;}</style>
+</head>
+<body>
+<h1>Autodoc</h1>
+<p>Okay, so writing documentation is tedious and boring. Tedious and boring things can be automated.<br>
+This is my attempt at doing so.</p>
+
+<h2>Variables</h2>
+<table border='1'><tr><th>Name</th><th>Params</th><th>Description</th><th>Example</th><th>Returns</th></tr></table>
+
+<h2>Methods</h2>
+<table border='1'><tr><th>Name</th><th>Params</th><th>Description</th><th>Example</th><th>Returns</th></tr><tr><td>getdocstrbytype</td><td>startswith: str</td><td>Returns a string where all the lines starting with startswith joined by ",&lt;br&gt;\n"</td><td><font color='#aaaaaa'>n/a</font></td><td>str</td></tr>
+<tr><td>getmethods</td><td>cls: object | Class</td><td>Gets all methods in a class, returns them in a list.<br>
+Static method.</td><td>getmethods(Autodoc)</td><td>[method: function, ...]</td></tr>
+<tr><td>getvariables</td><td>cls: object | Class</td><td>Gets all variables in a class, returns them in a list.<br>
+Static method.</td><td>getvariables(Autodoc)</td><td>[variable: object, ...]</td></tr>
+<tr><td>itemrowstotable</td><td>nameitems: [(str, object), ...]</td><td>Takes the names and items returned by getmethod or getvariables and returns a table.</td><td><font color='#aaaaaa'>n/a</font></td><td>table.Table</td></tr>
+<tr><td>itemtotablerow</td><td>name: str,<br>
+item: object</td><td>Takes an item returned from getmethod or getvariables and returns a TableRow</td><td><font color='#aaaaaa'>n/a</font></td><td>tablerow.TableRow</td></tr>
+<tr><td>slicedocstring</td><td>obj: object</td><td>Splits an object's docstring into a list of stripped lines.</td><td><font color='#aaaaaa'>n/a</font></td><td>[str, ...]</td></tr></table>
+<br><hr><h5>Generated with Autodoc</h5>
+</body>
+</html>

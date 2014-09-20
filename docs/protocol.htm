@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+<title>Autodoc: Protocol</title>
+<style>body {font-family: Arial;}</style>
+</head>
+<body>
+<h1>Protocol</h1>
+<p>Protocol's job is to take function calls and turn them into IRC commands.<br>
+In other words, it's here so you don't have to write raw IRC.<br>
+Don't write raw IRC anywhere else.<br>
+https://tools.ietf.org/html/rfc2812</p>
+
+<h2>Variables</h2>
+<table border='1'><tr><th>Name</th><th>Params</th><th>Description</th><th>Example</th><th>Returns</th></tr></table>
+
+<h2>Methods</h2>
+<table border='1'><tr><th>Name</th><th>Params</th><th>Description</th><th>Example</th><th>Returns</th></tr><tr><td>Nick</td><td><font color='#aaaaaa'>n/a</font></td><td>Subclass to Protocol.<br>
+Groups methods regarding the NICK command.</td><td><font color='#aaaaaa'>n/a</font></td><td><font color='#aaaaaa'>n/a</font></td></tr>
+<tr><td>Whois</td><td><font color='#aaaaaa'>n/a</font></td><td>Subclass to Protocol.<br>
+Groups methods regarding the WHOIS command.</td><td><font color='#aaaaaa'>n/a</font></td><td><font color='#aaaaaa'>n/a</font></td></tr>
+<tr><td>handshake</td><td>client: Client</td><td>When a client connects, it tells us who it is, and then we respond with some welcoming stuff.<br>
+TODO: This isn't generic at all, needs fix.</td><td><font color='#aaaaaa'>n/a</font></td><td>[str, ...]</td></tr>
+<tr><td>join</td><td>client: Client,<br>
+channel: Channel</td><td>Returns a join command</td><td><font color='#aaaaaa'>n/a</font></td><td>str</td></tr>
+<tr><td>part</td><td>channel: Channel,<br>
+reason: str</td><td>Returns a part command</td><td><font color='#aaaaaa'>n/a</font></td><td>str</td></tr>
+<tr><td>pong</td><td><font color='#aaaaaa'>n/a</font></td><td>PONG!</td><td><font color='#aaaaaa'>n/a</font></td><td>str</td></tr>
+<tr><td>privmsg</td><td>client: Client,<br>
+channel: Channel,<br>
+message: str</td><td>Returns a privmsg command</td><td><font color='#aaaaaa'>n/a</font></td><td>str</td></tr>
+<tr><td>quit</td><td>client: Client,<br>
+reason: str</td><td>Returns a quit command</td><td><font color='#aaaaaa'>n/a</font></td><td>str</td></tr></table>
+<br><hr><h5>Generated with Autodoc</h5>
+</body>
+</html>

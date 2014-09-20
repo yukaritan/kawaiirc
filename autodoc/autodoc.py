@@ -1,4 +1,5 @@
 from builtins import *
+import os
 from domain.channel import Channel
 from domain.client import Client
 from domain.protocol import Protocol
@@ -123,9 +124,11 @@ def test():
                Protocol.Nick,
                Protocol.Whois]
 
+    # os.mkdir("docs")
+
     for cls in classes:
         _stdout = sys.stdout
-        path = '/tmp/{name}.htm'.format(name=cls.__name__.lower())
+        path = 'docs/{name}.htm'.format(name=cls.__name__.lower())
         with open(path, 'w+') as sys.stdout:
 
             print("<!doctype html>")

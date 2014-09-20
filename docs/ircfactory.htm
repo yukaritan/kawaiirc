@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+<title>Autodoc: IRCFactory</title>
+<style>body {font-family: Arial;}</style>
+</head>
+<body>
+<h1>IRCFactory</h1>
+<p>This is where networking is born! It's also where we list all our clients and channels.<br>
+When a user connects, a ClientConnection is born to cater to them.</p>
+
+<h2>Variables</h2>
+<table border='1'><tr><th>Name</th><th>Params</th><th>Description</th><th>Example</th><th>Returns</th></tr><tr><td>channels</td><td><font color='#aaaaaa'>n/a</font></td><td><font color='#aaaaaa'>n/a</font></td><td><font color='#aaaaaa'>n/a</font></td><td><font color='#aaaaaa'>n/a</font></td></tr>
+<tr><td>clients</td><td><font color='#aaaaaa'>n/a</font></td><td><font color='#aaaaaa'>n/a</font></td><td><font color='#aaaaaa'>n/a</font></td><td><font color='#aaaaaa'>n/a</font></td></tr>
+<tr><td>noisy</td><td><font color='#aaaaaa'>n/a</font></td><td>bool(x) -&gt; bool<br>
+Returns True when the argument x is true, False otherwise.<br>
+The builtins True and False are the only two instances of the class bool.<br>
+The class bool is a subclass of the class int, and cannot be subclassed.</td><td><font color='#aaaaaa'>n/a</font></td><td><font color='#aaaaaa'>n/a</font></td></tr>
+<tr><td>numPorts</td><td><font color='#aaaaaa'>n/a</font></td><td>int(x=0) -&gt; integer<br>
+int(x, base=10) -&gt; integer<br>
+Convert a number or string to an integer, or return 0 if no arguments<br>
+are given.  If x is a number, return x.__int__().  For floating point<br>
+numbers, this truncates towards zero.<br>
+If x is not a number or if base is given, then x must be a string,<br>
+bytes, or bytearray instance representing an integer literal in the<br>
+given base.  The literal can be preceded by '+' or '-' and be surrounded<br>
+by whitespace.  The base defaults to 10.  Valid bases are 0 and 2-36.<br>
+Base 0 means to interpret the base from the string as an integer literal.<br>
+&gt;&gt;&gt; int('0b100', base=0)<br>
+4</td><td><font color='#aaaaaa'>n/a</font></td><td><font color='#aaaaaa'>n/a</font></td></tr>
+<tr><td>protocol</td><td><font color='#aaaaaa'>n/a</font></td><td><font color='#aaaaaa'>n/a</font></td><td><font color='#aaaaaa'>n/a</font></td><td><font color='#aaaaaa'>n/a</font></td></tr></table>
+
+<h2>Methods</h2>
+<table border='1'><tr><th>Name</th><th>Params</th><th>Description</th><th>Example</th><th>Returns</th></tr><tr><td>buildProtocol</td><td><font color='#aaaaaa'>n/a</font></td><td>Create an instance of a subclass of Protocol.<br>
+The returned instance will handle input on an incoming server<br>
+connection, and an attribute "factory" pointing to the creating<br>
+factory.<br>
+Override this method to alter how Protocol instances get created.<br>
+@param addr: an object implementing L{twisted.internet.interfaces.IAddress}</td><td><font color='#aaaaaa'>n/a</font></td><td><font color='#aaaaaa'>n/a</font></td></tr>
+<tr><td>doStart</td><td><font color='#aaaaaa'>n/a</font></td><td>Make sure startFactory is called.<br>
+Users should not call this function themselves!</td><td><font color='#aaaaaa'>n/a</font></td><td><font color='#aaaaaa'>n/a</font></td></tr>
+<tr><td>doStop</td><td><font color='#aaaaaa'>n/a</font></td><td>Make sure stopFactory is called.<br>
+Users should not call this function themselves!</td><td><font color='#aaaaaa'>n/a</font></td><td><font color='#aaaaaa'>n/a</font></td></tr>
+<tr><td>forProtocol</td><td><font color='#aaaaaa'>n/a</font></td><td>Create a factory for the given protocol.<br>
+It sets the C{protocol} attribute and returns the constructed factory<br>
+instance.<br>
+@param protocol: A L{Protocol} subclass<br>
+@param args: Positional arguments for the factory.<br>
+@param kwargs: Keyword arguments for the factory.<br>
+@return: A L{Factory} instance wired up to C{protocol}.</td><td><font color='#aaaaaa'>n/a</font></td><td><font color='#aaaaaa'>n/a</font></td></tr>
+<tr><td>logPrefix</td><td><font color='#aaaaaa'>n/a</font></td><td>Describe this factory for log messages.</td><td><font color='#aaaaaa'>n/a</font></td><td><font color='#aaaaaa'>n/a</font></td></tr>
+<tr><td>startFactory</td><td><font color='#aaaaaa'>n/a</font></td><td>This will be called before I begin listening on a Port or Connector.<br>
+It will only be called once, even if the factory is connected<br>
+to multiple ports.<br>
+This can be used to perform 'unserialization' tasks that<br>
+are best put off until things are actually running, such<br>
+as connecting to a database, opening files, etcetera.</td><td><font color='#aaaaaa'>n/a</font></td><td><font color='#aaaaaa'>n/a</font></td></tr>
+<tr><td>stopFactory</td><td><font color='#aaaaaa'>n/a</font></td><td>This will be called before I stop listening on all Ports/Connectors.<br>
+This can be overridden to perform 'shutdown' tasks such as disconnecting<br>
+database connections, closing files, etc.<br>
+It will be called, for example, before an application shuts down,<br>
+if it was connected to a port. User code should not call this function<br>
+directly.</td><td><font color='#aaaaaa'>n/a</font></td><td><font color='#aaaaaa'>n/a</font></td></tr></table>
+<br><hr><h5>Generated with Autodoc</h5>
+</body>
+</html>

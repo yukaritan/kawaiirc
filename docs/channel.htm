@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+<title>Autodoc: Channel</title>
+<style>body {font-family: Arial;}</style>
+</head>
+<body>
+<h1>Channel</h1>
+<p>This is a channel. Each channel has a list of clients and a method that can send the same thing to every client in a loop.<br>
+It actually has two, and they're very similar to each other. The difference is that send() sends to everyone in the channel, while say() sends to everyone except the client who caused the message to be sent in the first place.</p>
+
+<h2>Variables</h2>
+<table border='1'><tr><th>Name</th><th>Params</th><th>Description</th><th>Example</th><th>Returns</th></tr><tr><td>clients</td><td><font color='#aaaaaa'>n/a</font></td><td>A list of clients currently in the channel.<br>
+Each client needs to have this channel in their channel list as well!</td><td><font color='#aaaaaa'>n/a</font></td><td>[Client, ...]</td></tr>
+<tr><td>name</td><td><font color='#aaaaaa'>n/a</font></td><td>The name of the channel</td><td>"#aardvark"</td><td>str</td></tr>
+<tr><td>owner</td><td><font color='#aaaaaa'>n/a</font></td><td>The user who created the channel</td><td><font color='#aaaaaa'>n/a</font></td><td>Client</td></tr>
+<tr><td>topic</td><td><font color='#aaaaaa'>n/a</font></td><td>The topic of the channel</td><td>"Aardvarks are awesome"</td><td>str</td></tr></table>
+
+<h2>Methods</h2>
+<table border='1'><tr><th>Name</th><th>Params</th><th>Description</th><th>Example</th><th>Returns</th></tr><tr><td>say</td><td>client: Client,<br>
+message: str</td><td>Sends message as a PRIVMSG to everyone in the channel except the person who sent it.</td><td><font color='#aaaaaa'>n/a</font></td><td>None</td></tr>
+<tr><td>send</td><td>data: str</td><td>Sends data to everyone in the channel. It can be anything, like a join message.</td><td><font color='#aaaaaa'>n/a</font></td><td>None</td></tr></table>
+<br><hr><h5>Generated with Autodoc</h5>
+</body>
+</html>
