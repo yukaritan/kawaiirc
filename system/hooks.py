@@ -122,6 +122,12 @@ def handle_join(data, match, client, channels):
     :type client: Client
     :type channels: list
     """
+
+    templates = [":{identity} JOIN {channel}",  # join
+                 ":{server} 332 {nick} {channel} :{topic}",  # topic
+                 ":{server} 353 {nick} = {channel} :{nicks}",  # names in channel
+                 ":{server} 366 {nick} {channel} :End of /NAMES list."]  # end of names
+
     for channame in match['channels'].split(','):
         channame = channame.strip()
         logger.debug("{nick} joins channel {channame}", nick=client.nick, channame=channame)
@@ -129,9 +135,18 @@ def handle_join(data, match, client, channels):
         if channame not in channels:
             channels[channame] = Channel(name=channame, owner=client)
 
-        channel = channels[channame]  # defaultdict creates a new channel on demand
+        channel = channels[channame]
         channel.clients.append(client)
         client.channels.append(channel)
+
+        nicks = ' '.join(client.nick for client in channel.clients)
+        client.send([template.format(channel=channel.name,
+                                     identity=client.identity,
+                                     nick=client.nick,
+                                     nicks=nicks,
+                                     server="localhost",
+                                     topic=channel.topic)
+                     for template in templates])
 
         announce = Protocol.join(client, channel)
         channel.send(announce)
@@ -160,9 +175,8 @@ def handle_part(data, match, client, channels):
 
     channel = channels[channame]
 
-    if channel in client.channels:
-        client.channels.remove(channel)
-        channels[channame].clients.remove(client)
+    client.channels.remove(channel)
+    channels[channame].clients.remove(client)
 
     announce = Protocol.part(client, channel, match['message'] or 'leaving')
     channel.send(announce)

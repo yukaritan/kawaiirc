@@ -1,6 +1,7 @@
 from builtins import *
 
 from domain.constants import Response
+from domain.client import Client
 
 
 class Protocol:
@@ -69,8 +70,8 @@ class Protocol:
         """
 
         template = ":{identity} JOIN {channel}"
-        return template.format(identity=client.identity,
-                               channel=channel.name)
+        return template.format(channel=channel.name,
+                               identity=client.identity)
 
     @staticmethod
     def pong():

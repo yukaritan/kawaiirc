@@ -4,6 +4,8 @@ This class talks to clients, runs their messages through our hooks
 responses, usually through the send method it shares with its client.
 """
 
+from builtins import *
+
 from twisted.protocols import basic
 
 from domain.client import Client
@@ -37,9 +39,9 @@ class ClientConnection(basic.LineReceiver):
         """
         data = data.decode()
 
-        # logger.debug('Recieved "{data}" from {nick}',
-        #              nick=self._client.nick,
-        #              data=data)
+        logger.debug('Recieved "{data}" from {nick}',
+                     nick=self._client.nick,
+                     data=data)
 
         response = MessageHandler.handleline(data, self._client, self.factory.channels)
         if response:
@@ -51,8 +53,13 @@ class ClientConnection(basic.LineReceiver):
         :type data: str
         """
 
-        # logger.debug('Sending "{data}" to {nick}',
-        #              nick=self._client.nick,
-        #              data=data)
+        logger.debug('Sending "{data}" to {nick}',
+                     nick=self._client.nick,
+                     data=data)
 
-        self.transport.write((data + '\r\n').encode())
+        if type(data) in (list, tuple):
+            for line in data:
+                self.transport.write((line + '\r\n').encode())
+        else:
+            self.transport.write((data + '\r\n').encode())
+
